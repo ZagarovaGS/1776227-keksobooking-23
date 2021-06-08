@@ -1,20 +1,34 @@
 
-const getRandomNumberFloat = function (minNum, maxNum, floatCount) {
-  if (minNum >= 0 && maxNum >= 0) {
-    if (maxNum <= minNum) {
-      return -1;
-    }
+
+const isPositiveNumber = value => typeof value === 'number' && value >= 0;
+
+const getRandomBetween = (min, max, dec) => {
+  if (!isPositiveNumber(min) || !isPositiveNumber(max) || !isPositiveNumber(dec)) {
+    throw new Error('Неверный тип аргументов');
   }
 
-  return randomNum = (Math.random() * (maxNum - minNum) + minNum).toFixed(floatCount);
+  const pow = Math.pow(10, dec);
+  const result = Math.round((Math.random() * (max - min) + min) * pow) / pow;
+
+  return result;
+}
+
+//чувствую, что нерационально заворачивать в функцию, но по-другому не догадалась
+const getRandomNumber = (min, max, dec) => {
+
+  try {
+    console.log('result:', result = getRandomBetween(min, max, dec));
+  } catch (err) {
+    alert(err.message);
+  }
+
+  return result;
 };
 
-console.log(getRandomNumberFloat(1.234, 2.435, 1));
 
-const getRandomNumber = function (minNum, maxNum) {
-  let randomNum = getRandomNumberFloat(minNum, maxNum, 0);
-  return randomNum;
-};
+console.log(getRandomNumber(2, 6, 4));
 
-console.log(getRandomNumber(2, 8));
+
+
+
 
