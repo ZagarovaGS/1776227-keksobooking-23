@@ -1,4 +1,4 @@
-const isPositiveNumber = (value) => typeof value === "number" && value >= 0;
+const isPositiveNumber = (value) => typeof value === 'number' && value >= 0;
 
 const getRandomBetween = (min, max, dec) => {
   if (
@@ -6,7 +6,7 @@ const getRandomBetween = (min, max, dec) => {
     !isPositiveNumber(max) ||
     !isPositiveNumber(dec)
   ) {
-    throw new Error("Неверный тип аргументов");
+    throw new Error('неверный тип аргументов');
   }
 
   const pow = Math.pow(10, dec);
@@ -17,7 +17,7 @@ const getRandomBetween = (min, max, dec) => {
 
 try {
   //eslint-disable-next-line
-  console.log("result:", getRandomBetween(2, 6, 0));
+  console.log('result:', getRandomBetween(2, 6, 0));
 } catch (err) {
   //eslint-disable-next-line
   alert(err.message);
