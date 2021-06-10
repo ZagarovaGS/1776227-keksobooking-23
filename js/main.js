@@ -16,8 +16,10 @@ const getRandomBetween = (min, max, dec) => {
 };
 
 try {
+  //eslint-disable-next-line
   console.log("result:", getRandomBetween(2, 6, 0));
 } catch (err) {
+  //eslint-disable-next-line
   alert(err.message);
 }
 
