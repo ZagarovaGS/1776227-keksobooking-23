@@ -102,12 +102,13 @@ const getRandomAvatarIdx = getRandomItem(AVATAR);
 const padLeft = (idx) => `${idx}`.padStart(2, 0);
 const getAvatar = (idx) => `img/avatars/user ${padLeft(idx)}.png`;
 
-const guests = getRandomBetween(1, 10, 0);
-const time = getRandomItem(TIME);
-let lat = getRandomBetween(35.65, 35.7, 5);
-let lng = getRandomBetween(139.7, 139.8, 5);
-
 const getPropertyObject = () => {
+  const getRandomAvatarIdx = getRandomItem(AVATAR);
+  const guests = getRandomBetween(1, 10, 0);
+  const time = getRandomItem(TIME);
+  let lat = getRandomBetween(35.65, 35.7, 5);
+  let lng = getRandomBetween(139.7, 139.8, 5);
+
   return {
     author: {
       avatar: getAvatar(getRandomAvatarIdx),
