@@ -48,19 +48,35 @@ const DISCRIPTION = [
   'Великолепная лавочка прямо в центре парка. Подходит для всех кто любит спать на свежем воздухе.',
   'Маленькая квартирка на чердаке. Для самых не требовательных.',
 ];
-const LET_MIN = 35.65;
-const LET_MAX = 35.7;
-const LET_DEC = 5;
-const LNG_MIN = 139.7;
-const LNG_MAX = 139.8;
-const LNG_DEC = 5;
-const PRICE_MIN = 2000;
-const PRICE_MAX = 200000;
-const PRICE_DEC = 0;
-const ROOMS_MIN = 1;
-const ROOMS_MAX = 8;
-const GUESTS_MIN = 1;
-const GUESTS_MAX = 10;
+
+const Lat = {
+  MIN: 35.65,
+  MAX: 35.7,
+  DEC: 5,
+};
+const Lng = {
+  MIN: 139.7,
+  MAX: 139.8,
+  DEC: 5,
+};
+
+const Price = {
+  MIN: 2000,
+  MAX: 200000,
+  DEC: 0,
+};
+
+const Rooms = {
+  MIN: 1,
+  MAX: 8,
+  DEC: 0,
+};
+
+const Guests = {
+  MIN: 1,
+  MAX: 10,
+  DEC: 0,
+};
 //---------------------------------------------------------------------------------------------------------------
 
 //функции
@@ -105,11 +121,11 @@ getRandomItem = (array) => array[getRandomBetween(0, array.length, 0)];
 const padLeft = (idx) => `${idx}`.padStart(2, 0);
 const getAvatar = (idx) => `img/avatars/user ${padLeft(idx)}.png`;
 
-const getPropertyObject = () => {
+const getAd = () => {
   const getRandomAvatarIdx = getRandomItem(AVATAR);
   const time = getRandomItem(TIME);
-  let lat = getRandomBetween(LET_MIN, LET_MAX, LET_DEC);
-  let lng = getRandomBetween(LNG_MIN, LNG_MAX, LNG_DEC);
+  let lat = getRandomBetween(Lat.MIN, Lat.MAX, Lat.DEC);
+  let lng = getRandomBetween(Lng.MIN, Lng.MAX, Lng.DEC);
 
   return {
     author: {
@@ -118,10 +134,10 @@ const getPropertyObject = () => {
     offer: {
       title: getRandomItem(TITLE),
       address: `${lat}, ${lng}`,
-      price: getRandomBetween(PRICE_MIN, PRICE_MAX, PRICE_DEC),
+      price: getRandomBetween(Price.MIN, Price.MAX, Price.DEC),
       type: getRandomItem(TYPE),
-      rooms: getRandomBetween(ROOMS_MIN, ROOMS_MAX, 0),
-      guests: getRandomBetween(GUESTS_MIN, GUESTS_MAX, 0),
+      rooms: getRandomBetween(Rooms.MIN, Rooms.MAX, Rooms.DEC),
+      guests: getRandomBetween(Guests.MIN, Guests.MAX, Guests.DEC),
       checkin: time,
       checkout: time,
       features: getRandomItems(FIATURES),
@@ -137,11 +153,11 @@ const getPropertyObject = () => {
 
 const propertyObjects = [];
 
-const getPropertyArray = (array) => {
+const getAds = (array) => {
   for (let i = 0; i < AVATAR.length; i++) {
-    array.push(getPropertyObject());
+    array.push(getAd());
   }
   //eslint-disable-next-line
   console.log(array);
 };
-getPropertyArray(propertyObjects);
+getAds(propertyObjects);
