@@ -49,7 +49,7 @@ const getAd = () => {
 };
 
 const getAds = (propertyObjects) => {
-  propertyObjects = [];
+  const propertyObjects = [];
   for (let i = 0; i < AVATARS.length; i++) {
     propertyObjects.push(getAd());
   }
