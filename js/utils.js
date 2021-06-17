@@ -26,5 +26,5 @@ const getRandomItems = (array, canBeEmpty = true) => {
 };
 
 const getRandomItem = (array) => array[getRandomBetween(0, array.length, 0)];
-
-export { getRandomBetween, getRandomItems, getRandomItem };
+const padLeft = (idx) => `${idx}`.padStart(2, 0);
+export { getRandomBetween, getRandomItems, getRandomItem, padLeft };

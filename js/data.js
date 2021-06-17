@@ -13,11 +13,14 @@ import {
   Guests,
 } from './constants.js';
 
-import { getRandomBetween, getRandomItems, getRandomItem } from './utils.js';
+import {
+  getRandomBetween,
+  getRandomItems,
+  getRandomItem,
+  padLeft,
+} from './utils.js';
 
-const padLeft = (idx) => `${idx}`.padStart(2, 0);
 const getAvatar = (idx) => `img/avatars/user ${padLeft(idx)}.png`;
-
 const getAd = () => {
   const getRandomAvatarIdx = getRandomItem(AVATARS);
   const time = getRandomItem(TIMES);
@@ -48,8 +51,7 @@ const getAd = () => {
   };
 };
 
-const getAds = (propertyObjects) => {
-  const propertyObjects = [];
+const getAds = (propertyObjects = []) => {
   for (let i = 0; i < AVATARS.length; i++) {
     propertyObjects.push(getAd());
   }
