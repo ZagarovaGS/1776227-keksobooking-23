@@ -4,8 +4,8 @@ import {
   TYPES,
   TIMES,
   PHOTOS,
-  FIATURES,
-  DISCRIPTIONS,
+  FEATURES,
+  DESCRIPTIONS,
   Lat,
   Lng,
   Price,
@@ -20,7 +20,7 @@ import {
   padLeft,
 } from './utils.js';
 
-const getAvatar = (idx) => `img/avatars/user ${padLeft(idx)}.png`;
+const getAvatar = (idx) => `img/avatars/user${padLeft(idx)}.png`;
 const getAd = () => {
   const getRandomAvatarIdx = getRandomItem(AVATARS);
   const time = getRandomItem(TIMES);
@@ -38,10 +38,10 @@ const getAd = () => {
       type: getRandomItem(TYPES),
       rooms: getRandomBetween(Rooms.MIN, Rooms.MAX, Rooms.DEC),
       guests: getRandomBetween(Guests.MIN, Guests.MAX, Guests.DEC),
-      checkin: time,
+      checkin: '',
       checkout: time,
-      features: getRandomItems(FIATURES),
-      description: getRandomItem(DISCRIPTIONS),
+      features: getRandomItems(FEATURES),
+      descriptions: getRandomItem(DESCRIPTIONS),
       photos: getRandomItems(PHOTOS),
     },
     location: {

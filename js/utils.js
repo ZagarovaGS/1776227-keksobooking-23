@@ -25,6 +25,28 @@ const getRandomItems = (array, canBeEmpty = true) => {
   return result;
 };
 
-const getRandomItem = (array) => array[getRandomBetween(0, array.length, 0)];
+const getRandomItem = (array) =>
+  array[getRandomBetween(0, array.length - 1, 0)];
 const padLeft = (idx) => `${idx}`.padStart(2, 0);
-export { getRandomBetween, getRandomItems, getRandomItem, padLeft };
+
+const getPluralIdx = (count) => {
+  const c10 = count % 10;
+  const c100 = count % 100;
+  if (c10 === 1 && c100 !== 11) {
+    return 0;
+  }
+
+  if (c10 >= 2 && c10 <= 4 && (c100 < 10 || c100 >= 20)) {
+    return 1;
+  }
+
+  return 2;
+};
+
+const pluralise = (count, plurals) => {
+  return plurals[getPluralIdx(count)];
+};
+
+const getPlural = (count, plural) => `${count} ${pluralise(count, plural)}`;
+
+export { getRandomBetween, getRandomItems, getRandomItem, padLeft, getPlural };
