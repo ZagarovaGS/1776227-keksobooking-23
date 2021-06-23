@@ -1,4 +1,4 @@
-const AVATARS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+const AVATARS = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 const TITLES = [
   'Квартира студия в престижном районе',
   'Тихая квартирка недалеко от метро',
@@ -20,12 +20,12 @@ const TIMES = ['12:00', '13:00', '14:00'];
 const PHOTOS_ROOT =
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/';
 const PHOTOS = [
-  `${PHOTOS_ROOT} duonguyen-8LrGtIxxa4w.jpg`,
+  `${PHOTOS_ROOT}duonguyen-8LrGtIxxa4w.jpg`,
   `${PHOTOS_ROOT}brandon-hoogenboom-SNxQGWxZQi0.jpg`,
   `${PHOTOS_ROOT}claire-rendall-b6kAwr1i0Iw.jpg`,
 ];
 
-const FIATURES = [
+const FEATURES = [
   'wifi',
   'dishwasher',
   'parking',
@@ -34,7 +34,7 @@ const FIATURES = [
   'conditioner',
 ];
 
-const DISCRIPTIONS = [
+const DESCRIPTIONS = [
   'Комната в трёхкомнатной квартире, подойдёт молодым путешественникам.',
   'У нас тут все ништяк. Ларек за углом. Шава 24 часа. Приезжайте! Интернетов нет!',
   'Хейтеров просьба не беспокоить.',
@@ -80,8 +80,8 @@ export {
   TYPES,
   TIMES,
   PHOTOS,
-  FIATURES,
-  DISCRIPTIONS,
+  FEATURES,
+  DESCRIPTIONS,
   Lat,
   Lng,
   Price,
