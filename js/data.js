@@ -38,7 +38,7 @@ const getAd = () => {
       type: getRandomItem(TYPES),
       rooms: getRandomBetween(Rooms.MIN, Rooms.MAX, Rooms.DEC),
       guests: getRandomBetween(Guests.MIN, Guests.MAX, Guests.DEC),
-      checkin: '',
+      checkin: time,
       checkout: time,
       features: getRandomItems(FEATURES),
       descriptions: getRandomItem(DESCRIPTIONS),

@@ -1,48 +1,11 @@
 import { getPlural } from './utils.js';
+import { AD_TYPES, GUESTS, ROOMS } from './constants.js';
+import { removeExtraFeatures, randerPhotos, setOrRemove } from './dom-utils.js';
 
 const CARD_TEMPLATE = document.querySelector('#card');
 const MAP_ELEMENT = document.querySelector('.map');
 const MAP_CANVAS_ELEMENT = MAP_ELEMENT.querySelector('#map-canvas');
 
-const AD_TYPES = {
-  flat: 'Квартира',
-  bungalow: 'Бунгало',
-  house: 'Дом',
-  palace: 'Дворец',
-  hotel: 'Отель',
-};
-
-const GUESTS = ['гостя', 'гостей', 'гостей'];
-const ROOMS = ['комната', 'комнаты', 'комнат'];
-
-const removeExtraFeatures = (elements, actualFeatures) => {
-  elements.forEach((element) => {
-    const classes = element.classList[1].split('--');
-    if (!actualFeatures.includes(classes[1])) {
-      element.remove();
-    }
-  });
-};
-
-const randerPhotos = (element, photos) => {
-  const fragment = document.createDocumentFragment();
-
-  photos.forEach((photoUrl) => {
-    const photoElement = element.cloneNode(true);
-    photoElement.src = photoUrl;
-    fragment.appendChild(photoElement);
-  });
-  element.remove();
-  return fragment;
-};
-
-const setOrRemove = (element, value, text) => {
-  if (!value) {
-    element.remove();
-    return;
-  }
-  element.textContent = text || value;
-};
 const randerCard = (ad) => {
   const { offer, author } = ad;
   const card = CARD_TEMPLATE.content.cloneNode(true);
@@ -71,7 +34,7 @@ const randerCard = (ad) => {
   setOrRemove(description, offer.descriptions);
 
   avatar.src = author.avatar;
-  if (!avatar) {
+  if (!author.avatar) {
     avatar.remove();
   }
   removeExtraFeatures(features, offer.features);

@@ -18,11 +18,11 @@ const TYPES = ['palace', 'flat', 'house', 'bungalow', 'hotel'];
 const TIMES = ['12:00', '13:00', '14:00'];
 
 const PHOTOS_ROOT =
-  'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/';
+  'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking';
 const PHOTOS = [
-  `${PHOTOS_ROOT}duonguyen-8LrGtIxxa4w.jpg`,
-  `${PHOTOS_ROOT}brandon-hoogenboom-SNxQGWxZQi0.jpg`,
-  `${PHOTOS_ROOT}claire-rendall-b6kAwr1i0Iw.jpg`,
+  `${PHOTOS_ROOT}/duonguyen-8LrGtIxxa4w.jpg`,
+  `${PHOTOS_ROOT}/brandon-hoogenboom-SNxQGWxZQi0.jpg`,
+  `${PHOTOS_ROOT}/claire-rendall-b6kAwr1i0Iw.jpg`,
 ];
 
 const FEATURES = [
@@ -74,6 +74,18 @@ const Guests = {
   MAX: 10,
   DEC: 0,
 };
+
+const AD_TYPES = {
+  flat: 'Квартира',
+  bungalow: 'Бунгало',
+  house: 'Дом',
+  palace: 'Дворец',
+  hotel: 'Отель',
+};
+
+const GUESTS = ['гостя', 'гостей', 'гостей'];
+const ROOMS = ['комната', 'комнаты', 'комнат'];
+
 export {
   AVATARS,
   TITLES,
@@ -87,4 +99,7 @@ export {
   Price,
   Rooms,
   Guests,
+  AD_TYPES,
+  GUESTS,
+  ROOMS,
 };

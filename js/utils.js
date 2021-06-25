@@ -43,9 +43,7 @@ const getPluralIdx = (count) => {
   return 2;
 };
 
-const pluralise = (count, plurals) => {
-  return plurals[getPluralIdx(count)];
-};
+const pluralise = (count, plurals) => plurals[getPluralIdx(count)];
 
 const getPlural = (count, plural) => `${count} ${pluralise(count, plural)}`;
 
