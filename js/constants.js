@@ -86,6 +86,16 @@ const AD_TYPES = {
 const GUESTS = ['гостя', 'гостей', 'гостей'];
 const ROOMS = ['комната', 'комнаты', 'комнат'];
 
+const HeaderLength = {
+  MIN: 30,
+  MAX: 100,
+};
+
+const PriceValue = {
+  MIN: 0,
+  MAX: 1000000,
+};
+
 export {
   AVATARS,
   TITLES,
@@ -102,4 +112,6 @@ export {
   AD_TYPES,
   GUESTS,
   ROOMS,
+  HeaderLength,
+  PriceValue,
 };
