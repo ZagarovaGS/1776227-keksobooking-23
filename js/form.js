@@ -1,5 +1,5 @@
 import { validateHeader, validatePrice } from './validate.js';
-import { HeaderLength, PriceValue } from './constants.js';
+import { HeaderLength, PriceValue, TYPES, HousingType } from './constants.js';
 
 const FORM = document.querySelector('.ad-form');
 const HEADER = FORM.querySelector('#title');
@@ -7,6 +7,9 @@ const ADDRESS = FORM.querySelector('#address');
 const PRICE = FORM.querySelector('#price');
 const ROOM_NUMBER = FORM.querySelector('#room_number');
 const GUESTS = FORM.querySelector('#capacity');
+const TYPE = FORM.querySelector('#type');
+const CHECKIN = FORM.querySelector('#timein');
+const CHECKOUT = FORM.querySelector('#timeout');
 
 const preparHeader = () => {
   HEADER.setAttribute('required', true);
@@ -20,7 +23,6 @@ const preparAddress = () => {
 };
 const preparPrice = () => {
   PRICE.setAttribute('required', true);
-  PRICE.setAttribute('min', PriceValue.MIN);
   PRICE.setAttribute('max', PriceValue.MAX);
 };
 
@@ -30,19 +32,6 @@ const handleHeaderChange = (evt) => {
   if (!validateHeader(value)) {
     element.setCustomValidity(
       `минимум ${HeaderLength.MIN} знаков, максимум ${HeaderLength.MAX} знаков`
-    );
-  } else {
-    element.setCustomValidity('');
-  }
-  element.reportValidity();
-};
-
-const handlePriceChange = (evt) => {
-  const element = evt.target;
-  const value = element.value;
-  if (!validatePrice(Number(value))) {
-    element.setCustomValidity(
-      `минимум ${PriceValue.MIN}, максимум ${PriceValue.MAX} `
     );
   } else {
     element.setCustomValidity('');
@@ -68,11 +57,45 @@ const handleRoomsGuestsChange = () => {
   GUESTS.reportValidity();
 };
 
+const handleTypePriceChange = (evt) => {
+  const element = evt.target;
+  const value = element.value;
+  const type = TYPE.value;
+  for (let i = 0; i < TYPES.length; i++) {
+    if (type === TYPES[i]) {
+      const minPrice = HousingType[TYPES[i]];
+      PRICE.setAttribute('min', Number(minPrice));
+      if ((!validatePrice(Number(value)), Number(minPrice))) {
+        element.setCustomValidity(
+          `минимум ${minPrice}, максимум ${PriceValue.MAX} `
+        );
+      }
+      PRICE.setAttribute('placeholder', minPrice);
+    } else {
+      element.setCustomValidity('');
+    }
+  }
+  PRICE.reportValidity();
+};
+
+const handleCheckinCheckout = (evt) => {
+  const element = evt.target;
+  const value = element.value;
+  CHECKIN.textContent = value;
+  CHECKOUT.textContent = value;
+
+  CHECKIN.reportValidity();
+  CHECKOUT.reportValidity();
+};
+
 const addValidaters = () => {
   HEADER.addEventListener('input', handleHeaderChange);
-  PRICE.addEventListener('input', handlePriceChange);
   ROOM_NUMBER.addEventListener('change', handleRoomsGuestsChange);
   GUESTS.addEventListener('change', handleRoomsGuestsChange);
+  TYPE.addEventListener('change', handleTypePriceChange);
+  PRICE.addEventListener('input', handleTypePriceChange);
+  CHECKIN.addEventListener('onchange', handleCheckinCheckout);
+  CHECKOUT.addEventListener('onchange', handleCheckinCheckout);
 };
 
 const validateForm = () => {};
