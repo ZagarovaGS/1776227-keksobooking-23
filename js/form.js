@@ -29,13 +29,11 @@ const preparPrice = () => {
 const handleHeaderChange = (evt) => {
   const element = evt.target;
   const value = element.value;
-  if (!validateHeader(value)) {
-    element.setCustomValidity(
-      `минимум ${HeaderLength.MIN} знаков, максимум ${HeaderLength.MAX} знаков`
-    );
-  } else {
-    element.setCustomValidity('');
-  }
+  !validateHeader(value)
+    ? element.setCustomValidity(
+        `минимум ${HeaderLength.MIN} знаков, максимум ${HeaderLength.MAX} знаков`
+      )
+    : element.setCustomValidity('');
   element.reportValidity();
 };
 
@@ -44,14 +42,11 @@ const handleRoomsGuestsChange = () => {
   const guests = Number(GUESTS.value);
   let message = '';
 
-  if (rooms === 100) {
-    if (guests !== 0) {
-      message = '100 комнат не для гостей';
-    }
-  } else {
-    if (guests === 0 || rooms < guests) {
-      message = 'гостей должно быть не больше комнат';
-    }
+  if (rooms === 100 && guests !== 0) {
+    message = '100 комнат не для гостей';
+  }
+  if ((rooms !== 100 && guests === 0) || rooms < guests) {
+    message = 'гостей должно быть не больше комнат';
   }
   GUESTS.setCustomValidity(message);
   GUESTS.reportValidity();
@@ -80,12 +75,9 @@ const handleTypePriceChange = (evt) => {
 
 const handleCheckinCheckout = (evt) => {
   const element = evt.target;
-  const value = element.value;
-  CHECKIN.textContent = value;
-  CHECKOUT.textContent = value;
-
-  CHECKIN.reportValidity();
-  CHECKOUT.reportValidity();
+  const elValue = element.value;
+  CHECKIN.value = elValue;
+  CHECKOUT.value = elValue;
 };
 
 const addValidaters = () => {
@@ -94,8 +86,8 @@ const addValidaters = () => {
   GUESTS.addEventListener('change', handleRoomsGuestsChange);
   TYPE.addEventListener('change', handleTypePriceChange);
   PRICE.addEventListener('input', handleTypePriceChange);
-  CHECKIN.addEventListener('onchange', handleCheckinCheckout);
-  CHECKOUT.addEventListener('onchange', handleCheckinCheckout);
+  CHECKIN.addEventListener('change', handleCheckinCheckout);
+  CHECKOUT.addEventListener('change', handleCheckinCheckout);
 };
 
 const validateForm = () => {};
