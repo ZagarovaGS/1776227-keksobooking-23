@@ -1,5 +1,6 @@
 import { validateHeader, validatePrice } from './validate.js';
-import { HeaderLength, PriceValue, TYPES, HousingType } from './constants.js';
+import { HeaderLength, PriceValue, TYPES, HOUSING_TYPE } from './constants.js';
+import { findMinPrice } from './utils.js';
 
 const FORM = document.querySelector('.ad-form');
 const HEADER = FORM.querySelector('#title');
@@ -29,11 +30,12 @@ const preparPrice = () => {
 const handleHeaderChange = (evt) => {
   const element = evt.target;
   const value = element.value;
-  !validateHeader(value)
-    ? element.setCustomValidity(
-        `минимум ${HeaderLength.MIN} знаков, максимум ${HeaderLength.MAX} знаков`
-      )
-    : element.setCustomValidity('');
+  const message = !validateHeader(value)
+    ? `минимум ${HeaderLength.MIN} знаков,
+  максимум ${HeaderLength.MAX} знаков`
+    : '';
+
+  element.setCustomValidity(message);
   element.reportValidity();
 };
 
@@ -56,28 +58,24 @@ const handleTypePriceChange = (evt) => {
   const element = evt.target;
   const value = element.value;
   const type = TYPE.value;
-  for (let i = 0; i < TYPES.length; i++) {
-    if (type === TYPES[i]) {
-      const minPrice = HousingType[TYPES[i]];
-      PRICE.setAttribute('min', Number(minPrice));
-      if ((!validatePrice(Number(value)), Number(minPrice))) {
-        element.setCustomValidity(
-          `минимум ${minPrice}, максимум ${PriceValue.MAX} `
-        );
-      }
-      PRICE.setAttribute('placeholder', minPrice);
-    } else {
-      element.setCustomValidity('');
+
+  if (TYPES.sort(findMinPrice)) {
+    const minPrice = HOUSING_TYPE[type];
+    PRICE.setAttribute('min', Number(minPrice));
+    if ((!validatePrice(Number(value)), Number(minPrice))) {
+      element.setCustomValidity(
+        `минимум ${minPrice}, максимум ${PriceValue.MAX} `
+      );
     }
+    PRICE.setAttribute('placeholder', minPrice);
   }
   PRICE.reportValidity();
 };
 
-const handleCheckinCheckout = (evt) => {
-  const element = evt.target;
-  const elValue = element.value;
-  CHECKIN.value = elValue;
-  CHECKOUT.value = elValue;
+const handleTimeChange = (evt) => {
+  const value = evt.target.value;
+  CHECKIN.value = value;
+  CHECKOUT.value = value;
 };
 
 const addValidaters = () => {
@@ -86,8 +84,8 @@ const addValidaters = () => {
   GUESTS.addEventListener('change', handleRoomsGuestsChange);
   TYPE.addEventListener('change', handleTypePriceChange);
   PRICE.addEventListener('input', handleTypePriceChange);
-  CHECKIN.addEventListener('change', handleCheckinCheckout);
-  CHECKOUT.addEventListener('change', handleCheckinCheckout);
+  CHECKIN.addEventListener('change', handleTimeChange);
+  CHECKOUT.addEventListener('change', handleTimeChange);
 };
 
 const validateForm = () => {};

@@ -47,5 +47,15 @@ const pluralise = (count, plurals) => plurals[getPluralIdx(count)];
 
 const getPlural = (count, plural) => `${count} ${pluralise(count, plural)}`;
 
+const findMinPrice = (element, type) => {
+  return element === type;
+};
 
-export { getRandomBetween, getRandomItems, getRandomItem, padLeft, getPlural };
+export {
+  getRandomBetween,
+  getRandomItems,
+  getRandomItem,
+  padLeft,
+  getPlural,
+  findMinPrice,
+};

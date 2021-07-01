@@ -96,7 +96,7 @@ const PriceValue = {
   MAX: 1000000,
 };
 
-const HousingType = {
+const HOUSING_TYPE = {
   flat: 1000,
   bungalow: 0,
   house: 5000,
@@ -122,5 +122,5 @@ export {
   ROOMS,
   HeaderLength,
   PriceValue,
-  HousingType,
+  HOUSING_TYPE,
 };
