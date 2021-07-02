@@ -59,16 +59,15 @@ const handleTypePriceChange = (evt) => {
   const value = element.value;
   const type = TYPE.value;
 
-  if (TYPES.sort(findMinPrice)) {
-    const minPrice = HOUSING_TYPE[type];
-    PRICE.setAttribute('min', Number(minPrice));
-    if ((!validatePrice(Number(value)), Number(minPrice))) {
-      element.setCustomValidity(
-        `минимум ${minPrice}, максимум ${PriceValue.MAX} `
-      );
-    }
-    PRICE.setAttribute('placeholder', minPrice);
-  }
+  const minPrice = HOUSING_TYPE[type];
+  PRICE.setAttribute('min', Number(minPrice));
+  const message = !validatePrice(Number(value), Number(minPrice))
+    ? `минимум ${minPrice}, максимум ${PriceValue.MAX} `
+    : '';
+  element.setCustomValidity(message);
+  PRICE.setAttribute('placeholder', minPrice);
+  PRICE.setAttribute('min', minPrice);
+
   PRICE.reportValidity();
 };
 
