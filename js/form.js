@@ -1,6 +1,5 @@
 import { validateHeader, validatePrice } from './validate.js';
-import { HeaderLength, PriceValue, TYPES, HOUSING_TYPE } from './constants.js';
-import { findMinPrice } from './utils.js';
+import { HeaderLength, PriceValue, HOUSING_TYPE } from './constants.js';
 
 const FORM = document.querySelector('.ad-form');
 const HEADER = FORM.querySelector('#title');
@@ -12,17 +11,17 @@ const TYPE = FORM.querySelector('#type');
 const CHECKIN = FORM.querySelector('#timein');
 const CHECKOUT = FORM.querySelector('#timeout');
 
-const preparHeader = () => {
+const prepareHeader = () => {
   HEADER.setAttribute('required', true);
   HEADER.setAttribute('minLength', HeaderLength.MIN);
   HEADER.setAttribute('maxLenght', HeaderLength.MAX);
 };
 
-const preparAddress = () => {
+const prepareAddress = () => {
   ADDRESS.setAttribute('required', true);
   ADDRESS.setAttribute('value', 'введите адрес');
 };
-const preparPrice = () => {
+const preparePrice = () => {
   PRICE.setAttribute('required', true);
   PRICE.setAttribute('max', PriceValue.MAX);
 };
@@ -58,15 +57,14 @@ const handleTypePriceChange = (evt) => {
   const element = evt.target;
   const value = element.value;
   const type = TYPE.value;
-
   const minPrice = HOUSING_TYPE[type];
-  PRICE.setAttribute('min', Number(minPrice));
+
+  TYPE.change = PRICE.setAttribute('placeholder', minPrice);
+  TYPE.change = PRICE.setAttribute('min', minPrice);
   const message = !validatePrice(Number(value), Number(minPrice))
     ? `минимум ${minPrice}, максимум ${PriceValue.MAX} `
     : '';
-  element.setCustomValidity(message);
-  PRICE.setAttribute('placeholder', minPrice);
-  PRICE.setAttribute('min', minPrice);
+  PRICE.setCustomValidity(message);
 
   PRICE.reportValidity();
 };
@@ -77,12 +75,12 @@ const handleTimeChange = (evt) => {
   CHECKOUT.value = value;
 };
 
-const addValidaters = () => {
+const addValidators = () => {
   HEADER.addEventListener('input', handleHeaderChange);
   ROOM_NUMBER.addEventListener('change', handleRoomsGuestsChange);
   GUESTS.addEventListener('change', handleRoomsGuestsChange);
-  TYPE.addEventListener('change', handleTypePriceChange);
   PRICE.addEventListener('input', handleTypePriceChange);
+  TYPE.addEventListener('change', handleTypePriceChange);
   CHECKIN.addEventListener('change', handleTimeChange);
   CHECKOUT.addEventListener('change', handleTimeChange);
 };
@@ -90,10 +88,10 @@ const addValidaters = () => {
 const validateForm = () => {};
 
 const prepareForm = () => {
-  preparHeader();
-  preparAddress();
-  preparPrice();
+  prepareHeader();
+  prepareAddress();
+  preparePrice();
 };
 
 prepareForm();
-export { validateForm, addValidaters };
+export { validateForm, addValidators };
