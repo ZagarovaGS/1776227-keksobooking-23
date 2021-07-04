@@ -96,6 +96,14 @@ const PriceValue = {
   MAX: 1000000,
 };
 
+const HOUSING_TYPE = {
+  flat: 1000,
+  bungalow: 0,
+  house: 5000,
+  palace: 10000,
+  hotel: 3000,
+};
+
 export {
   AVATARS,
   TITLES,
@@ -114,4 +122,5 @@ export {
   ROOMS,
   HeaderLength,
   PriceValue,
+  HOUSING_TYPE,
 };

@@ -55,8 +55,7 @@ const getAds = (propertyObjects = []) => {
   for (let i = 0; i < AVATARS.length; i++) {
     propertyObjects.push(getAd());
   }
-  //eslint-disable-next-line
-  console.log(propertyObjects);
+
   return propertyObjects;
 };
 

@@ -12,7 +12,7 @@ const validateLength = (value, minlenght, maxlenght) =>
 const validateHeader = (header) =>
   validateLength(header, HeaderLength.MIN, HeaderLength.MAX);
 
-const validatePrice = (price) =>
-  validateNumber(price, PriceValue.MIN, PriceValue.MAX);
+const validatePrice = (price, minValue) =>
+  validateNumber(price, minValue, PriceValue.MAX);
 
 export { validateLength, validateNumber, validateHeader, validatePrice };

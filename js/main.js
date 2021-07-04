@@ -1,6 +1,6 @@
 import { getAds } from './data.js';
 import { randerCard } from './card.js';
-import { validateForm, addValidaters } from './form.js';
+import { validateForm, addValidators } from './form.js';
 //import { disableForms, enableForms } from './dom-utils.js';
 
 //disableForms();
@@ -10,5 +10,5 @@ if (false) {
   randerCard(ads[0]);
 }
 validateForm();
-addValidaters();
+addValidators();
 //setTimeout(enableForms, 3000);
