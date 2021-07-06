@@ -40,9 +40,7 @@ const randerCard = (ad) => {
   removeExtraFeatures(features, offer.features);
   photosContainer.appendChild(randerPhotos(photoElement, offer.photos));
 
-  const fragment = document.createDocumentFragment();
-  fragment.appendChild(card);
-  return fragment;
+  return card;
   //MAP_CANVAS_ELEMENT.appendChild(card);
 };
 
