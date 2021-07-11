@@ -19,7 +19,6 @@ const prepareHeader = () => {
 
 const prepareAddress = () => {
   ADDRESS.setAttribute('required', true);
-  ADDRESS.setAttribute('value', 'введите адрес');
 };
 const preparePrice = () => {
   PRICE.setAttribute('required', true);

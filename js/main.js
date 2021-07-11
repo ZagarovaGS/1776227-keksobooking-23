@@ -6,7 +6,7 @@ import { addMarkers, addSetView } from './map.js';
 disableForms();
 
 const ads = getAds();
-addSetView(enableForms());
+addSetView(enableForms);
 addMarkers(ads, randerCard);
 validateForm();
 addValidators();
