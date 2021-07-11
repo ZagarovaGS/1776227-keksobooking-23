@@ -32,23 +32,23 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(MAP);
 
 const addMarker = (pin) => pin.addTo(MAP);
-const addMainMarker = addMarker(MAIN_PIN_MARKER);
+const mainMarkerPlace = addMarker(MAIN_PIN_MARKER);
 
 const getPinCoords = () => {
-  const pinCoords = addMainMarker.getLatLng();
+  const pinCoords = mainMarkerPlace.getLatLng();
   ADDRESS.value = `${pinCoords.lat.toFixed(
     COUNT_DIGITS
   )}, ${pinCoords.lng.toFixed(COUNT_DIGITS)}`;
 };
 
-addMainMarker.on('moveend', (evt) => {
+mainMarkerPlace.on('moveend', (evt) => {
   getPinCoords(evt.target);
 });
 
 const addSetView = (activeForm) => {
   MAP.on('load', () => {
-    addMainMarker;
-    activeForm;
+    mainMarkerPlace;
+    activeForm();
   });
   MAP.setView(TOKIO_COORDS, STEP);
 };
