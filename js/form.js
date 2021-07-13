@@ -1,5 +1,11 @@
 import { validateHeader, validatePrice } from './validate.js';
-import { HeaderLength, PriceValue, HOUSING_TYPE } from './constants.js';
+import {
+  HeaderLength,
+  PriceValue,
+  HOUSING_TYPE,
+  SAVE_URL,
+} from './constants.js';
+import { saveData } from './api.js';
 
 const FORM = document.querySelector('.ad-form');
 const HEADER = FORM.querySelector('#title');
@@ -10,6 +16,8 @@ const GUESTS = FORM.querySelector('#capacity');
 const TYPE = FORM.querySelector('#type');
 const CHECKIN = FORM.querySelector('#timein');
 const CHECKOUT = FORM.querySelector('#timeout');
+const SUCCESS_TEXT = document.createElement('div');
+const AD_SUBMIT_RESULT = document.querySelector('.notice');
 
 const prepareHeader = () => {
   HEADER.setAttribute('required', true);
@@ -19,7 +27,6 @@ const prepareHeader = () => {
 
 const prepareAddress = () => {
   ADDRESS.setAttribute('required', true);
-  ADDRESS.setAttribute('value', 'введите адрес');
 };
 const preparePrice = () => {
   PRICE.setAttribute('required', true);
@@ -75,6 +82,31 @@ const handleTimeChange = (evt) => {
   CHECKOUT.value = value;
 };
 
+const addHiddenClass = () => (SUCCESS_TEXT.classList = 'hidden');
+
+AD_SUBMIT_RESULT.appendChild(SUCCESS_TEXT);
+SUCCESS_TEXT.classList = 'success_text hidden';
+//при повторонй отправке формы слетает класс success_text.
+const onSubmitSuccess = () => {
+  SUCCESS_TEXT.classList.remove('hidden');
+  SUCCESS_TEXT.textContent = 'Удачная отправка формы';
+  setTimeout(addHiddenClass, 3000);
+  FORM.reset();
+};
+
+const onSubmitError = () => {
+  SUCCESS_TEXT.classList.remove('hidden');
+  SUCCESS_TEXT.style.backgroundColor = 'red';
+  SUCCESS_TEXT.textContent = 'Ошибка. Форма не отправлена';
+  setTimeout(addHiddenClass, 3000);
+};
+
+const onSubmit = (evt) => {
+  const formData = new FormData(evt.target);
+  evt.preventDefault();
+  saveData(SAVE_URL, formData, onSubmitSuccess, onSubmitError);
+};
+
 const addValidators = () => {
   HEADER.addEventListener('input', handleHeaderChange);
   ROOM_NUMBER.addEventListener('change', handleRoomsGuestsChange);
@@ -83,6 +115,7 @@ const addValidators = () => {
   TYPE.addEventListener('change', handleTypePriceChange);
   CHECKIN.addEventListener('change', handleTimeChange);
   CHECKOUT.addEventListener('change', handleTimeChange);
+  FORM.addEventListener('submit', onSubmit);
 };
 
 const validateForm = () => {};
