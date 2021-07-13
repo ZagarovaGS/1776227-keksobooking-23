@@ -86,10 +86,10 @@ const addHiddenClass = () => (SUCCESS_TEXT.classList = 'hidden');
 
 AD_SUBMIT_RESULT.appendChild(SUCCESS_TEXT);
 SUCCESS_TEXT.classList = 'success_text hidden';
-//при повторонй отправке формы слетает класс success_text.
+//при повтороной отправке формы слетает класс success_text.
 const onSubmitSuccess = () => {
   SUCCESS_TEXT.classList.remove('hidden');
-  SUCCESS_TEXT.textContent = 'Удачная отправка формы';
+  SUCCESS_TEXT.textContent = 'Успешная отправка формы';
   setTimeout(addHiddenClass, 3000);
   FORM.reset();
 };
