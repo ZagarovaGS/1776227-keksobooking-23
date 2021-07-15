@@ -1,5 +1,5 @@
 import { isFunction } from './utils.js';
-const NUMBER_OBJECTS = 10;
+import { NUMBER_OBJECTS } from './constants.js';
 
 let importData = null;
 let preparedData = null;

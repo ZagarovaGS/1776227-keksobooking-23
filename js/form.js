@@ -6,6 +6,13 @@ import {
   SAVE_URL,
 } from './constants.js';
 import { saveData } from './api.js';
+import {
+  addMainMarkerCoordinates,
+  addMarker,
+  removeMarker,
+  MAIN_PIN_MARKER,
+  TOKIO_COORDS,
+} from './map.js';
 
 const FORM = document.querySelector('.ad-form');
 const HEADER = FORM.querySelector('#title');
@@ -18,6 +25,8 @@ const CHECKIN = FORM.querySelector('#timein');
 const CHECKOUT = FORM.querySelector('#timeout');
 const SUCCESS_TEXT = document.createElement('div');
 const AD_SUBMIT_RESULT = document.querySelector('.notice');
+const AD_FILTER = document.querySelector('.map__filters');
+const CLEAR_FORM = FORM.querySelector('.ad-form__reset');
 
 const prepareHeader = () => {
   HEADER.setAttribute('required', true);
@@ -85,16 +94,21 @@ const handleTimeChange = (evt) => {
 const addHiddenClass = () => (SUCCESS_TEXT.classList = 'hidden');
 
 AD_SUBMIT_RESULT.appendChild(SUCCESS_TEXT);
-SUCCESS_TEXT.classList = 'success_text hidden';
-//при повтороной отправке формы слетает класс success_text.
+SUCCESS_TEXT.classList = 'hidden';
+
 const onSubmitSuccess = () => {
+  SUCCESS_TEXT.classList.add('success_text');
   SUCCESS_TEXT.classList.remove('hidden');
+  SUCCESS_TEXT.style.backgroundColor = 'green';
   SUCCESS_TEXT.textContent = 'Успешная отправка формы';
   setTimeout(addHiddenClass, 3000);
   FORM.reset();
+  AD_FILTER.reset();
+  addMainMarkerCoordinates();
 };
 
 const onSubmitError = () => {
+  SUCCESS_TEXT.classList.add('success_text');
   SUCCESS_TEXT.classList.remove('hidden');
   SUCCESS_TEXT.style.backgroundColor = 'red';
   SUCCESS_TEXT.textContent = 'Ошибка. Форма не отправлена';
@@ -106,6 +120,18 @@ const onSubmit = (evt) => {
   evt.preventDefault();
   saveData(SAVE_URL, formData, onSubmitSuccess, onSubmitError);
 };
+
+const onClearForm = (evt) => {
+  evt.preventDefault();
+  FORM.reset();
+  AD_FILTER.reset();
+  addMainMarkerCoordinates();
+  removeMarker(MAIN_PIN_MARKER);
+  MAIN_PIN_MARKER.setLatLng(TOKIO_COORDS);
+  addMarker(MAIN_PIN_MARKER);
+};
+
+CLEAR_FORM.addEventListener('click', onClearForm);
 
 const addValidators = () => {
   HEADER.addEventListener('input', handleHeaderChange);
