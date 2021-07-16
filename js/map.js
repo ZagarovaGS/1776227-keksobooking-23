@@ -9,13 +9,13 @@ const TOKIO_COORDS = {
 };
 
 const MAIN_PIN_ICON = L.icon({
-  iconUrl: '/img/main-pin.svg',
+  iconUrl: 'img/main-pin.svg',
   iconSize: [52, 52],
   iconAnhor: [26, 52],
 });
 
 const HOUSING_ICON = L.icon({
-  iconUrl: '/img/pin.svg',
+  iconUrl: 'img/pin.svg',
   iconSize: [40, 40],
   iconAnhor: [20, 40],
 });
@@ -33,6 +33,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 const addMarker = (pin) => pin.addTo(MAP);
 const mainMarkerPlace = addMarker(MAIN_PIN_MARKER);
+const removeMarker = (pin) => pin.remove();
 
 const getPinCoords = () => {
   const pinCoords = mainMarkerPlace.getLatLng();
@@ -40,13 +41,16 @@ const getPinCoords = () => {
     COUNT_DIGITS
   )}, ${pinCoords.lng.toFixed(COUNT_DIGITS)}`;
 };
-
+const addMainMarkerCoordinates = () => {
+  ADDRESS.value = `${TOKIO_COORDS.lat}, ${TOKIO_COORDS.lng}`;
+};
 mainMarkerPlace.on('moveend', (evt) => {
   getPinCoords(evt.target);
 });
 
 const addSetView = (activeForm) => {
   MAP.on('load', () => {
+    addMainMarkerCoordinates();
     mainMarkerPlace;
     activeForm();
   });
@@ -68,4 +72,13 @@ const addMarkers = (points, addCard) => {
   return markers;
 };
 
-export { addMarkers, addSetView };
+export {
+  addMarkers,
+  addSetView,
+  addMainMarkerCoordinates,
+  mainMarkerPlace,
+  removeMarker,
+  addMarker,
+  MAIN_PIN_MARKER,
+  TOKIO_COORDS,
+};

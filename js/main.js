@@ -1,12 +1,25 @@
-import { getAds } from './data.js';
+import { loadData, showError } from './api.js';
 import { randerCard } from './card.js';
 import { validateForm, addValidators } from './form.js';
 import { disableForms, enableForms } from './dom-utils.js';
 import { addMarkers, addSetView } from './map.js';
-disableForms();
+import { DATA_URL } from './constants.js';
+import { storeData, getData } from './store.js';
+import { addMainMarkerCoordinates } from './map.js';
 
-const ads = getAds();
-addSetView(enableForms);
-addMarkers(ads, randerCard);
-validateForm();
+disableForms();
 addValidators();
+validateForm();
+
+const onDataLoaded = (data) => {
+  storeData(data);
+  addMarkers(getData(), randerCard);
+};
+
+const activate = () => {
+  enableForms();
+  loadData(DATA_URL, onDataLoaded, showError);
+  addMainMarkerCoordinates();
+};
+
+addSetView(activate);

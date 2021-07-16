@@ -16,7 +16,7 @@ const FORMS = [
 const removeExtraFeatures = (elements, actualFeatures) => {
   elements.forEach((element) => {
     const classes = element.classList[1].split('--');
-    if (!actualFeatures.includes(classes[1])) {
+    if (!actualFeatures || !actualFeatures.includes(classes[1])) {
       element.remove();
     }
   });
@@ -24,13 +24,15 @@ const removeExtraFeatures = (elements, actualFeatures) => {
 
 const randerPhotos = (element, photos) => {
   const fragment = document.createDocumentFragment();
+  if (photos) {
+    photos.forEach((photoUrl) => {
+      const photoElement = element.cloneNode(true);
+      photoElement.src = photoUrl;
+      fragment.appendChild(photoElement);
+    });
 
-  photos.forEach((photoUrl) => {
-    const photoElement = element.cloneNode(true);
-    photoElement.src = photoUrl;
-    fragment.appendChild(photoElement);
-  });
-  element.remove();
+    element.remove();
+  }
   return fragment;
 };
 

@@ -5,7 +5,7 @@ import { removeExtraFeatures, randerPhotos, setOrRemove } from './dom-utils.js';
 const CARD_TEMPLATE = document
   .querySelector('#card')
   .content.querySelector('.popup');
-const MAP_ELEMENT = document.querySelector('.map');
+//const MAP_ELEMENT = document.querySelector('.map');
 
 const randerCard = (ad) => {
   const { offer, author } = ad;

@@ -103,6 +103,9 @@ const HOUSING_TYPE = {
   palace: 10000,
   hotel: 3000,
 };
+const DATA_URL = 'https://23.javascript.pages.academy/keksobooking/data';
+const SAVE_URL = 'https://23.javascript.pages.academy/keksobooking';
+const NUMBER_OBJECTS = 10;
 
 export {
   AVATARS,
@@ -123,4 +126,7 @@ export {
   HeaderLength,
   PriceValue,
   HOUSING_TYPE,
+  DATA_URL,
+  SAVE_URL,
+  NUMBER_OBJECTS,
 };
