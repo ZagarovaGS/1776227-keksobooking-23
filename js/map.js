@@ -4,8 +4,8 @@ const MAP = L.map('map-canvas');
 const STEP = 10;
 const COUNT_DIGITS = 6;
 const TOKIO_COORDS = {
-  lat: '35.652832',
-  lng: '139.839478',
+  lat: '35.68378',
+  lng: '139.75423',
 };
 
 const MAIN_PIN_ICON = L.icon({
@@ -69,7 +69,10 @@ const addMarkers = (points, addCard) => {
       };
     markers.push(marker);
   });
-  return markers;
+};
+
+const removePins = () => {
+  markers.forEach((marker) => MAP.removeLayer(marker));
 };
 
 export {
@@ -81,4 +84,5 @@ export {
   addMarker,
   MAIN_PIN_MARKER,
   TOKIO_COORDS,
+  removePins,
 };
