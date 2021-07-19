@@ -107,6 +107,13 @@ const DATA_URL = 'https://23.javascript.pages.academy/keksobooking/data';
 const SAVE_URL = 'https://23.javascript.pages.academy/keksobooking';
 const NUMBER_OBJECTS = 10;
 
+const PRICE_VARIANTS = {
+  low: 10000,
+  middle: 50000,
+};
+
+const RERENDER_DELAY = 500;
+
 export {
   AVATARS,
   TITLES,
@@ -129,4 +136,6 @@ export {
   DATA_URL,
   SAVE_URL,
   NUMBER_OBJECTS,
+  RERENDER_DELAY,
+  PRICE_VARIANTS,
 };

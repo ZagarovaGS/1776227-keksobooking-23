@@ -31,9 +31,8 @@ const randerPhotos = (element, photos) => {
       fragment.appendChild(photoElement);
     });
     element.remove();
-  } else {
-    element.remove();
   }
+  element.remove();
   return fragment;
 };
 
@@ -76,13 +75,13 @@ const ERROR_TEMPLATE = document
   .querySelector('#error')
   .content.querySelector('.error');
 
-const error = ERROR_TEMPLATE.cloneNode(true);
-const ERROR_BTN = error.querySelector('.error__button');
-const ERROR_TEXT = error.querySelector('.error__message');
+const ERROR = ERROR_TEMPLATE.cloneNode(true);
+const ERROR_BTN = ERROR.querySelector('.error__button');
+const ERROR_TEXT = ERROR.querySelector('.error__message');
 
-const showError = () => document.body.append(error);
+const showError = () => document.body.append(ERROR);
 
-const handleError = () => error.classList.add('hidden');
+const handleError = () => ERROR.classList.add('hidden');
 const onErrorEsc = (evt) => {
   if (evt.keyCode === 27) {
     handleError();

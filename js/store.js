@@ -1,6 +1,5 @@
 import { isFunction } from './utils.js';
 import { NUMBER_OBJECTS } from './constants.js';
-import { filterAds } from './filters.js';
 
 let importData = null;
 let preparedData = null;

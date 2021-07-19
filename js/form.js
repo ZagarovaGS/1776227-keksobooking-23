@@ -4,6 +4,7 @@ import {
   PriceValue,
   HOUSING_TYPE,
   SAVE_URL,
+  RERENDER_DELAY,
 } from './constants.js';
 import { saveData } from './api.js';
 import {
@@ -14,6 +15,7 @@ import {
   TOKIO_COORDS,
 } from './map.js';
 import { setFeatureValue, setSelectValue } from './filters.js';
+import { debounce } from './utils/debounce.js';
 
 const FORM = document.querySelector('.ad-form');
 const HEADER = FORM.querySelector('#title');
@@ -154,6 +156,7 @@ const getOnFilterChange = (onChange) => (evt) => {
   setSelectValue(name, value);
   onChange();
 };
+
 const addValidators = (onFiltersChange) => {
   HEADER.addEventListener('input', handleHeaderChange);
   ROOM_NUMBER.addEventListener('change', handleRoomsGuestsChange);
@@ -165,10 +168,18 @@ const addValidators = (onFiltersChange) => {
   FORM.addEventListener('submit', onSubmit);
 
   const onFilterChange = getOnFilterChange(onFiltersChange);
+
   const onFeatureChange = getOnFeaturesChange(onFiltersChange);
 
-  MAP_FILTERS.addEventListener('change', onFilterChange);
-  FEATURES.addEventListener('change', onFeatureChange);
+  MAP_FILTERS.addEventListener(
+    'change',
+    debounce(onFilterChange, RERENDER_DELAY)
+  );
+
+  FEATURES.addEventListener(
+    'change',
+    debounce(onFeatureChange, RERENDER_DELAY)
+  );
 };
 
 const validateForm = () => {};
