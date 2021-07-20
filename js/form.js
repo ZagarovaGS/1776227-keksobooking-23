@@ -5,6 +5,8 @@ import {
   HOUSING_TYPE,
   SAVE_URL,
   RERENDER_DELAY,
+  SUCCES_TEXTCONTENT,
+  ERROR_TEXT
 } from './constants.js';
 import { saveData } from './api.js';
 import {
@@ -13,9 +15,14 @@ import {
   removeMarker,
   MAIN_PIN_MARKER,
   TOKIO_COORDS,
+  removePins,
+  addMarkers
 } from './map.js';
-import { setFeatureValue, setSelectValue } from './filters.js';
 import { debounce } from './utils/debounce.js';
+import { setFeatureValue, setSelectValue } from './filters.js';
+import {prepareData, getData} from './store.js';
+import { randerCard } from './card.js';
+
 
 const FORM = document.querySelector('.ad-form');
 const HEADER = FORM.querySelector('#title');
@@ -105,18 +112,21 @@ const onSubmitSuccess = () => {
   SUCCESS_TEXT.classList.add('success_text');
   SUCCESS_TEXT.classList.remove('hidden');
   SUCCESS_TEXT.style.backgroundColor = 'green';
-  SUCCESS_TEXT.textContent = 'Успешная отправка формы';
+  SUCCESS_TEXT.textContent = SUCCES_TEXTCONTENT;
   setTimeout(addHiddenClass, 3000);
   FORM.reset();
   AD_FILTER.reset();
   addMainMarkerCoordinates();
+  prepareData();
+  removePins();
+  addMarkers(getData(), randerCard);
 };
 
 const onSubmitError = () => {
   SUCCESS_TEXT.classList.add('success_text');
   SUCCESS_TEXT.classList.remove('hidden');
   SUCCESS_TEXT.style.backgroundColor = 'red';
-  SUCCESS_TEXT.textContent = 'Ошибка. Форма не отправлена';
+  SUCCESS_TEXT.textContent = ERROR_TEXT;
   setTimeout(addHiddenClass, 3000);
 };
 
@@ -134,6 +144,9 @@ const onClearForm = (evt) => {
   removeMarker(MAIN_PIN_MARKER);
   MAIN_PIN_MARKER.setLatLng(TOKIO_COORDS);
   addMarker(MAIN_PIN_MARKER);
+  prepareData();
+  removePins();
+  addMarkers(getData(), randerCard);
 };
 
 CLEAR_FORM.addEventListener('click', onClearForm);
@@ -173,12 +186,12 @@ const addValidators = (onFiltersChange) => {
 
   MAP_FILTERS.addEventListener(
     'change',
-    debounce(onFilterChange, RERENDER_DELAY)
+    debounce(onFilterChange, RERENDER_DELAY),
   );
 
   FEATURES.addEventListener(
     'change',
-    debounce(onFeatureChange, RERENDER_DELAY)
+    debounce(onFeatureChange, RERENDER_DELAY),
   );
 };
 
@@ -191,5 +204,4 @@ const prepareForm = () => {
 };
 
 prepareForm();
-
 export { validateForm, addValidators };

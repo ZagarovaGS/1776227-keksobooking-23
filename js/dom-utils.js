@@ -1,3 +1,4 @@
+import {ERROR_LOAD, KEYCODE_NUMBER} from './constants.js';
 const AD_FORM = document.querySelector('.ad-form');
 const MAP_FILTERES_FORM = document.querySelector('.map__filters');
 
@@ -83,11 +84,11 @@ const showError = () => document.body.append(ERROR);
 
 const handleError = () => ERROR.classList.add('hidden');
 const onErrorEsc = (evt) => {
-  if (evt.keyCode === 27) {
+  if (evt.keyCode === KEYCODE_NUMBER) {
     handleError();
   }
 };
-ERROR_TEXT.textContent = 'Ошибка загрузки объявлений';
+ERROR_TEXT.textContent = ERROR_LOAD;
 
 document.addEventListener('keydown', onErrorEsc);
 document.addEventListener('mousedown', handleError);
@@ -99,5 +100,5 @@ export {
   setOrRemove,
   disableForms,
   enableForms,
-  showError,
+  showError
 };
