@@ -16,6 +16,6 @@ const prepareData = (filterFn) => {
 
 const storeData = (data) => {
   importData = data;
-  prepareData();
+  preparedData = data;
 };
 export { getData, storeData, prepareData };

@@ -4,6 +4,7 @@ import {
   PriceValue,
   HOUSING_TYPE,
   SAVE_URL,
+  RERENDER_DELAY,
 } from './constants.js';
 import { saveData } from './api.js';
 import {
@@ -13,6 +14,8 @@ import {
   MAIN_PIN_MARKER,
   TOKIO_COORDS,
 } from './map.js';
+import { setFeatureValue, setSelectValue } from './filters.js';
+import { debounce } from './utils/debounce.js';
 
 const FORM = document.querySelector('.ad-form');
 const HEADER = FORM.querySelector('#title');
@@ -27,6 +30,8 @@ const SUCCESS_TEXT = document.createElement('div');
 const AD_SUBMIT_RESULT = document.querySelector('.notice');
 const AD_FILTER = document.querySelector('.map__filters');
 const CLEAR_FORM = FORM.querySelector('.ad-form__reset');
+const FEATURES = document.querySelector('#housing-features');
+const MAP_FILTERS = document.querySelector('.map__filters');
 
 const prepareHeader = () => {
   HEADER.setAttribute('required', true);
@@ -136,7 +141,26 @@ const onClearForm = (evt) => {
 
 CLEAR_FORM.addEventListener('click', onClearForm);
 
-const addValidators = () => {
+const getOnFeaturesChange = (onChange) => (evt) => {
+  const element = evt.target;
+  const name = element.value;
+  const value = element.checked;
+  setFeatureValue(name, value);
+  onChange();
+};
+
+const getOnFilterChange = (onChange) => (evt) => {
+  const element = evt.target;
+  if (element.type === 'checkbox') {
+    return;
+  }
+  const name = element.name.split('-')[1];
+  const value = element.value;
+  setSelectValue(name, value);
+  onChange();
+};
+
+const addValidators = (onFiltersChange) => {
   HEADER.addEventListener('input', handleHeaderChange);
   ROOM_NUMBER.addEventListener('change', handleRoomsGuestsChange);
   GUESTS.addEventListener('change', handleRoomsGuestsChange);
@@ -145,6 +169,20 @@ const addValidators = () => {
   CHECKIN.addEventListener('change', handleTimeChange);
   CHECKOUT.addEventListener('change', handleTimeChange);
   FORM.addEventListener('submit', onSubmit);
+
+  const onFilterChange = getOnFilterChange(onFiltersChange);
+
+  const onFeatureChange = getOnFeaturesChange(onFiltersChange);
+
+  MAP_FILTERS.addEventListener(
+    'change',
+    debounce(onFilterChange, RERENDER_DELAY)
+  );
+
+  FEATURES.addEventListener(
+    'change',
+    debounce(onFeatureChange, RERENDER_DELAY)
+  );
 };
 
 const validateForm = () => {};
@@ -156,4 +194,5 @@ const prepareForm = () => {
 };
 
 prepareForm();
+
 export { validateForm, addValidators };

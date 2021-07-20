@@ -30,9 +30,9 @@ const randerPhotos = (element, photos) => {
       photoElement.src = photoUrl;
       fragment.appendChild(photoElement);
     });
-
     element.remove();
   }
+  element.remove();
   return fragment;
 };
 
@@ -71,10 +71,33 @@ const disableForms = () => switchForms(false);
 
 const enableForms = () => switchForms(true);
 
+const ERROR_TEMPLATE = document
+  .querySelector('#error')
+  .content.querySelector('.error');
+
+const ERROR = ERROR_TEMPLATE.cloneNode(true);
+const ERROR_BTN = ERROR.querySelector('.error__button');
+const ERROR_TEXT = ERROR.querySelector('.error__message');
+
+const showError = () => document.body.append(ERROR);
+
+const handleError = () => ERROR.classList.add('hidden');
+const onErrorEsc = (evt) => {
+  if (evt.keyCode === 27) {
+    handleError();
+  }
+};
+ERROR_TEXT.textContent = 'Ошибка загрузки объявлений';
+
+document.addEventListener('keydown', onErrorEsc);
+document.addEventListener('mousedown', handleError);
+ERROR_BTN.addEventListener('click', handleError);
+
 export {
   removeExtraFeatures,
   randerPhotos,
   setOrRemove,
   disableForms,
   enableForms,
+  showError,
 };
