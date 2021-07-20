@@ -55,5 +55,5 @@ export {
   getRandomItem,
   padLeft,
   getPlural,
-  isFunction,
+  isFunction
 };

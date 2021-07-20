@@ -25,11 +25,11 @@ const randerCard = (ad) => {
 
   const capacityText = `${getPlural(offer.rooms, ROOMS)} для
   ${getPlural(offer.guests, GUESTS)}`;
-  const timeText = `Заезд после ${offer.checkin}, выезд до ${offer?.checkout}`;
+  const timeText = `Заезд после ${offer.checkin}, выезд до ${offer.checkout}`;
   setOrRemove(address, offer.address);
   setOrRemove(title, offer.title);
   setOrRemove(price, offer.price, `${offer.price} ₽/ночь`);
-  setOrRemove(type, offer.type, AD_TYPES[offer.type] ?? '');
+  setOrRemove(type, offer.type, AD_TYPES[offer.type]);
   setOrRemove(capacity, offer.rooms * offer.guests, capacityText);
   setOrRemove(time, offer.checkin.length * offer.checkout.length, timeText);
   setOrRemove(description, offer.descriptions);

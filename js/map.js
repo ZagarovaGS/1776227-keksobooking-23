@@ -38,7 +38,7 @@ const removeMarker = (pin) => pin.remove();
 const getPinCoords = () => {
   const pinCoords = mainMarkerPlace.getLatLng();
   ADDRESS.value = `${pinCoords.lat.toFixed(
-    COUNT_DIGITS
+    COUNT_DIGITS,
   )}, ${pinCoords.lng.toFixed(COUNT_DIGITS)}`;
 };
 const addMainMarkerCoordinates = () => {
@@ -64,9 +64,9 @@ const addMarkers = (points, addCard) => {
     });
 
     marker.addTo(MAP).bindPopup(addCard(point)),
-      {
-        keepInView: true,
-      };
+    {
+      keepInView: true,
+    };
     markers.push(marker);
   });
 };
@@ -84,5 +84,5 @@ export {
   addMarker,
   MAIN_PIN_MARKER,
   TOKIO_COORDS,
-  removePins,
+  removePins
 };

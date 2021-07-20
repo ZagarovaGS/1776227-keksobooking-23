@@ -113,6 +113,10 @@ const PRICE_VARIANTS = {
 };
 
 const RERENDER_DELAY = 500;
+const SUCCES_TEXTCONTENT = 'Успешная отправка формы';
+const ERROR_TEXT = 'Ошибка. Форма не отправлена';
+const ERROR_LOAD = 'Ошибка загрузки объявлений';
+const KEYCODE_NUMBER = 27;
 
 export {
   AVATARS,
@@ -138,4 +142,8 @@ export {
   NUMBER_OBJECTS,
   RERENDER_DELAY,
   PRICE_VARIANTS,
+  SUCCES_TEXTCONTENT,
+  ERROR_TEXT,
+  ERROR_LOAD,
+  KEYCODE_NUMBER
 };
