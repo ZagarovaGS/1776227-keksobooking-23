@@ -129,6 +129,9 @@ const onClearForm = (evt) => {
   removeMarker(MAIN_PIN_MARKER);
   MAIN_PIN_MARKER.setLatLng(TOKIO_COORDS);
   addMarker(MAIN_PIN_MARKER);
+  removePins();
+  prepareData();
+  addMarkers(getData(), randerCard);
 };
 
 CLEAR_FORM.addEventListener('click', onClearForm);
