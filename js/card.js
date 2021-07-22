@@ -2,14 +2,13 @@ import { getPlural } from './utils.js';
 import { AD_TYPES, GUESTS, ROOMS } from './constants.js';
 import { removeExtraFeatures, randerPhotos, setOrRemove } from './dom-utils.js';
 
-const CARD_TEMPLATE = document
+const cardTemplate = document
   .querySelector('#card')
   .content.querySelector('.popup');
-//const MAP_ELEMENT = document.querySelector('.map');
 
 const randerCard = (ad) => {
   const { offer, author } = ad;
-  const card = CARD_TEMPLATE.cloneNode(true);
+  const card = cardTemplate.cloneNode(true);
   const title = card.querySelector('.popup__title');
   const address = card.querySelector('.popup__text--address');
   const price = card.querySelector('.popup__text--price');

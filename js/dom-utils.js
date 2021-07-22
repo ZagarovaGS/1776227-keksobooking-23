@@ -72,27 +72,27 @@ const disableForms = () => switchForms(false);
 
 const enableForms = () => switchForms(true);
 
-const ERROR_TEMPLATE = document
+const errorTemplate = document
   .querySelector('#error')
   .content.querySelector('.error');
 
-const ERROR = ERROR_TEMPLATE.cloneNode(true);
+const ERROR = errorTemplate.cloneNode(true);
 const ERROR_BTN = ERROR.querySelector('.error__button');
 const ERROR_TEXT = ERROR.querySelector('.error__message');
 
 const showError = () => document.body.append(ERROR);
 
-const handleError = () => ERROR.classList.add('hidden');
-const onErrorEsc = (evt) => {
+const handleClick = () => ERROR.classList.add('hidden');
+const onClickEsc = (evt) => {
   if (evt.keyCode === KEYCODE_NUMBER) {
-    handleError();
+    handleClick();
   }
 };
 ERROR_TEXT.textContent = ERROR_LOAD;
 
-document.addEventListener('keydown', onErrorEsc);
-document.addEventListener('mousedown', handleError);
-ERROR_BTN.addEventListener('click', handleError);
+document.addEventListener('keydown', onClickEsc);
+document.addEventListener('mousedown', handleClick);
+ERROR_BTN.addEventListener('click', handleClick);
 
 export {
   removeExtraFeatures,
@@ -100,5 +100,8 @@ export {
   setOrRemove,
   disableForms,
   enableForms,
-  showError
+  showError,
+  ERROR,
+  ERROR_BTN,
+  ERROR_TEXT
 };

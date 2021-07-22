@@ -5,8 +5,8 @@ import {
   HOUSING_TYPE,
   SAVE_URL,
   RERENDER_DELAY,
-  SUCCES_TEXTCONTENT,
-  ERROR_TEXT
+  KEYCODE_NUMBER,
+  ERROR_MESSAGE
 } from './constants.js';
 import { saveData } from './api.js';
 import {
@@ -22,6 +22,7 @@ import { debounce } from './utils/debounce.js';
 import { setFeatureValue, setSelectValue } from './filters.js';
 import {prepareData, getData} from './store.js';
 import { randerCard } from './card.js';
+import { ERROR, ERROR_BTN, ERROR_TEXT } from './dom-utils.js';
 
 
 const FORM = document.querySelector('.ad-form');
@@ -33,17 +34,17 @@ const GUESTS = FORM.querySelector('#capacity');
 const TYPE = FORM.querySelector('#type');
 const CHECKIN = FORM.querySelector('#timein');
 const CHECKOUT = FORM.querySelector('#timeout');
-const SUCCESS_TEXT = document.createElement('div');
-const AD_SUBMIT_RESULT = document.querySelector('.notice');
 const AD_FILTER = document.querySelector('.map__filters');
 const CLEAR_FORM = FORM.querySelector('.ad-form__reset');
 const FEATURES = document.querySelector('#housing-features');
 const MAP_FILTERS = document.querySelector('.map__filters');
 
+
 const prepareHeader = () => {
   HEADER.setAttribute('required', true);
   HEADER.setAttribute('minLength', HeaderLength.MIN);
   HEADER.setAttribute('maxLenght', HeaderLength.MAX);
+  ADDRESS.setAttribute('readonly', true);
 };
 
 const prepareAddress = () => {
@@ -102,32 +103,47 @@ const handleTimeChange = (evt) => {
   CHECKIN.value = value;
   CHECKOUT.value = value;
 };
+//
+const successTemplate = document
+  .querySelector('#success')
+  .content.querySelector('.success');
 
-const addHiddenClass = () => (SUCCESS_TEXT.classList = 'hidden');
+const SUCCESS_TEXT = successTemplate.cloneNode(true);
+const SUCCESS_MESSAGE = SUCCESS_TEXT.querySelector('.success__message');
 
-AD_SUBMIT_RESULT.appendChild(SUCCESS_TEXT);
-SUCCESS_TEXT.classList = 'hidden';
+const handleSuccess = () => SUCCESS_TEXT.classList.add('hidden');
+const onSuccessEsc = (evt) => {
+  if (evt.keyCode === KEYCODE_NUMBER) {
+    handleSuccess();
+  }
+};
+
+handleSuccess();
 
 const onSubmitSuccess = () => {
-  SUCCESS_TEXT.classList.add('success_text');
+
+  document.body.append(SUCCESS_TEXT);
   SUCCESS_TEXT.classList.remove('hidden');
-  SUCCESS_TEXT.style.backgroundColor = 'green';
-  SUCCESS_TEXT.textContent = SUCCES_TEXTCONTENT;
-  setTimeout(addHiddenClass, 3000);
+  SUCCESS_MESSAGE.style.color = 'green';
   FORM.reset();
   AD_FILTER.reset();
   addMainMarkerCoordinates();
   prepareData();
   removePins();
   addMarkers(getData(), randerCard);
+  document.addEventListener('keydown', onSuccessEsc);
+  document.addEventListener('mousedown', handleSuccess);
 };
 
+
 const onSubmitError = () => {
-  SUCCESS_TEXT.classList.add('success_text');
-  SUCCESS_TEXT.classList.remove('hidden');
-  SUCCESS_TEXT.style.backgroundColor = 'red';
-  SUCCESS_TEXT.textContent = ERROR_TEXT;
-  setTimeout(addHiddenClass, 3000);
+
+  document.body.append(ERROR);
+  ERROR.classList.remove('hidden');
+  ERROR_TEXT.textContent = ERROR_MESSAGE;
+  document.addEventListener('keydown', onSuccessEsc);
+  document.addEventListener('mousedown', handleSuccess);
+  ERROR_BTN.addEventListener('click', handleSuccess);
 };
 
 const onSubmit = (evt) => {
@@ -135,6 +151,7 @@ const onSubmit = (evt) => {
   evt.preventDefault();
   saveData(SAVE_URL, formData, onSubmitSuccess, onSubmitError);
 };
+
 
 const onClearForm = (evt) => {
   evt.preventDefault();
